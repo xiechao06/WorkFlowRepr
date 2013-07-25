@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/hint.min.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/opentip.css') }}" />
+  <script type="text/javascript" src="{{ url_for('static', filename='js/svg.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/opentip-jquery.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/work-flow-repr.js') }}"></script>
+  <script type="text/javascript">
+    $(function () {
+      var tree = {
+        name: '收货单A',
+        description: '收货单A的描述',
+        target: 'http://www.baidu.com',
+        events: [
+            {
+              datetime: '2013-07-22T14:33:00',
+              name: '开始卸货',
+              actor: 'cc',
+              description: '<table class="table"><tr><th>车辆</th><td>浙B 12345</td></tr><tr><th>车间</th><td>车间一</td></tr></table>',
+            },
+            {
+              datetime: '2013-07-22T15:33:00',
+              name: '卸货完毕',
+              actor: 'cc',
+              description: '',
+            },
+            {
+              datetime: '2013-07-22T15:35:00',
+              name: '生成订单',
+              actor: 'cc',
+              description: '',
+            },
+          ],
+        childrenGroups: [
+          {
+            name: '订单',
+            items: [
+              {
+                name: '订单A',
+                description: '订单A的描述',
+                target: 'http://www.baidu.com',
+                events: [
+                    {
+                      datetime: '2013-07-22T15:35:00',
+                      name: '',
+                      by: '生成订单',
+                      actor: 'cc',
+                      description: '',
+                    },
+                    {
+                      datetime: '2013-07-22T15:40:00',
+                      name: '下发订单',
+                      actor: 'cc',
+                      description: '',
+                    }
+                  ],
+              }   
+            ], 
+          },
+        ]
+      };
+      var tree = {{ tree|tojson|safe }};
+      var canvas = document.getElementById('canvas');
+      var workFlowRepr = new WorkFlowRepr(canvas, tree); 
+      workFlowRepr.draw();
+    });
+  </script>
+</head>
+<body>
+  <div id="canvas"></div>
+</body>
+</html>
