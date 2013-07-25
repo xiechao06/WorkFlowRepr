@@ -163,14 +163,14 @@ WorkFlowRepr.prototype.draw = function () {
         lifeCycleLayer.push(line); 
         // draw branches
         var childCnt = 0;
-        var last_child_create_time = new Date();
+        var lastChildCreateTime = new Date();
         for (var j=0; j < node.childrenGroups.length; ++j) {
             var group = node.childrenGroups[j];
             for (var k=0; k < group['items'].length; ++k) {
                 var childNode = group['items'][k];
-                if (childNode.events[0].datetime != last_child_create_time) {
+                if (childNode.events[0].datetime != lastChildCreateTime) {
                     childCnt = 0;
-                    last_child_create_time = childNode.datetime;
+                    lastChildCreateTime = childNode.events[0].datetime;
                 } 
                 var y1 = this.margin + childNode.idx * steps;
                 var y2 = this.margin + node.idx * steps;
