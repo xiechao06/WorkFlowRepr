@@ -9,12 +9,13 @@ app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///temp.db"
 from flask.ext.sqlalchemy import SQLAlchemy
+
 db = SQLAlchemy(app)
+
 
 @app.route('/svg1')
 def svg1():
     class OrderNode(Node):
-
         @property
         def events(self):
             return [
@@ -33,6 +34,7 @@ def svg1():
                 Event(datetime.strptime('2013-07-22T14:33:00', "%Y-%m-%dT%H:%M:%S"), u'开始卸货', 'cc', '开始卸货的描述', ''),
                 Event(datetime.strptime('2013-07-22T15:33:00', "%Y-%m-%dT%H:%M:%S"), u'卸货完毕', 'cc', '卸货完毕的描述', ''),
                 Event(datetime.strptime('2013-07-22T15:35:00', "%Y-%m-%dT%H:%M:%S"), u'生成订单', 'cc', '生成订单的描述', ''),
+                Event(datetime.strptime('2013-07-22T23:56:00', "%Y-%m-%dT%H:%M:%S"), u'卸货完毕', 'cc', '卸货完毕的描述', ''),
             ]
 
 
@@ -40,12 +42,14 @@ def svg1():
         def children_groups(self):
             ChildrenGroup = namedtuple('ChildrenGroup', ['name', 'items'])
             return [
-                ChildrenGroup(u'订单', [OrderNode(u'订单A', u'订单A的描述', 'http://www.baidu.com'), OrderNode(u'订单A', u'订单A的描述', 'http://www.baidu.com')])
+                ChildrenGroup(u'订单', [OrderNode(u'订单A', u'订单A的描述', 'http://www.baidu.com'),
+                                      OrderNode(u'订单A', u'订单A的描述', 'http://www.baidu.com')])
             ]
-    
-    receipt_node = ReceiptNode(u'收货单A', u'收货单A的描述', 'http://www.baidu.com') 
+
+    receipt_node = ReceiptNode(u'收货单A', u'收货单A的描述', 'http://www.baidu.com')
 
     return render_template('svg.html', tree=receipt_node.json)
+
 
 @app.route('/svg2')
 def svg2():
@@ -53,7 +57,6 @@ def svg2():
     from work_flow_repr.utils import annotate_model, ModelNode, make_tree
 
     class GoodsReceiptNode(ModelNode):
-
         @property
         def name(self):
             return u"收货单" + unicode(self.obj)
@@ -65,9 +68,12 @@ def svg2():
         @property
         def events(self):
             return [
-                Event(self.obj.unload_time, u'unload start', self.obj.creator.username, 'unload start at ' + str(self.obj.unload_time), ''),
-                Event(self.obj.unload_done_time, u'unload done', self.obj.creator.username, 'unload completed at ' + str(self.obj.unload_done_time), ''),
-                Event(self.obj.order.create_time, u'generate order(s)', self.obj.creator.username, 'generate order at ' + str(self.obj.order.create_time), ''),
+                Event(self.obj.unload_time, u'unload start', self.obj.creator.username,
+                      'unload start at ' + str(self.obj.unload_time), ''),
+                Event(self.obj.unload_done_time, u'unload done', self.obj.creator.username,
+                      'unload completed at ' + str(self.obj.unload_done_time), ''),
+                Event(self.obj.order.create_time, u'generate order(s)', self.obj.creator.username,
+                      'generate order at ' + str(self.obj.order.create_time), ''),
             ]
 
         @property
@@ -76,10 +82,9 @@ def svg2():
 
         @property
         def children_model_groups(self):
-            return [('order', [self.obj.order]),]
-            
-    class OrderNode(ModelNode):
+            return [('order', [self.obj.order]), ]
 
+    class OrderNode(ModelNode):
         @property
         def name(self):
             return u"订单" + unicode(self.obj)
@@ -95,17 +100,20 @@ def svg2():
         @property
         def events(self):
             return [
-                Event(self.obj.create_time, 'generate', self.obj.creator.username, 'genreate at ' + str(self.obj.create_time), 'generate order(s)'),
-                Event(self.obj.dispatch_time, 'dispatch', self.obj.creator.username, 'dispath at ' + str(self.obj.dispatch_time), ''),
+                Event(self.obj.create_time, 'generate', self.obj.creator.username,
+                      'genreate at ' + str(self.obj.create_time), 'generate order(s)'),
+                Event(self.obj.dispatch_time, 'dispatch', self.obj.creator.username,
+                      'dispath at ' + str(self.obj.dispatch_time), ''),
             ]
 
         @property
         def children_model_groups(self):
-            return [] 
+            return []
 
     annotate_model(GoodsReceipt, GoodsReceiptNode)
     annotate_model(Order, OrderNode)
     return render_template('svg.html', tree=make_tree(GoodsReceipt.query.first()))
+
 
 if __name__ == "__main__":
     app.run()
