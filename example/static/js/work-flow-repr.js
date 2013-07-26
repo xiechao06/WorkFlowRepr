@@ -300,7 +300,7 @@ WorkFlowRepr.prototype.draw = function () {
                 } else {
                     circle = draw.circle(eventDiameter).center(eventPoint[0], eventPoint[1])
                 }
-                circle.fill({color: color}).attr(
+                circle.fill({color: "green"}).attr(
                         {
                             'data-actor': get_attr(group_size, "actor"),
                             'data-datetime': get_attr(group_size, "datetime"),
@@ -361,7 +361,7 @@ WorkFlowRepr.prototype.draw = function () {
                 group_size = [];
             }
         }
-        var line = draw.line(start[0], start[1], eventPoint[0], eventPoint[1]).stroke({color: 'lightblue', width: this.lifeCycleLineWidth}).attr({
+        var line = draw.line(start[0], start[1], eventPoint[0], eventPoint[1]).stroke({color: color, width: this.lifeCycleLineWidth}).attr({
             'data-role': 'life-cycle',
             'data-ot': node.description,
         });
