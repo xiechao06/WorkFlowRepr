@@ -1,8 +1,4 @@
 # -*- coding: UTF-8 -*-
-from collections import namedtuple
-import json
-
-
 class Node(object):
 
     def __init__(self, name, description, target):
@@ -22,7 +18,6 @@ class Node(object):
     def json(self):
         ret = {
             'name': self.name,
-            'description': self.description,
             'target': self.target,
             'description': self.description,
             'events': [event.json for event in sorted(self.events, key=lambda x: x.datetime)],

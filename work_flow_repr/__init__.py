@@ -4,7 +4,8 @@ from .event import Event
 from .node import Node
 
 if __name__ == "__main__":
-    
+    from datetime import datetime
+    from collections import namedtuple
     class OrderNode(Node):
 
         @property
@@ -34,7 +35,7 @@ if __name__ == "__main__":
             return [
                 ChildrenGroup(u'订单', [OrderNode(u'订单A', u'订单A的描述', 'http://www.baidu.com')])
             ]
-    
-    receipt_node = ReceiptNode(u'收货单A', u'收货单A的描述', 'http://www.baidu.com') 
+
+    receipt_node = ReceiptNode(u'收货单A', u'收货单A的描述', 'http://www.baidu.com')
 
     print receipt_node.json

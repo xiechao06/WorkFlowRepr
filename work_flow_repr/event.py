@@ -1,10 +1,5 @@
 # -*- coding: UTF-8 -*-
-from collections import namedtuple
-import json
-from datetime import datetime
-
 class Event(object):
-
     def __init__(self, datetime, name, actor, description='', by=''):
         self.datetime = datetime
         self.name = name

@@ -4,11 +4,12 @@ from work_flow_repr import Node
 
 _table_model_spec_map = {}
 
+
 def annotate_model(model, node_cls):
     _table_model_spec_map[model.__tablename__] = node_cls
 
-class ModelNode(Node):
 
+class ModelNode(Node):
     def __init__(self, obj):
         self.obj = obj
 
@@ -35,6 +36,7 @@ class ModelNode(Node):
     @property
     def children_model_groups(self):
         return NotImplemented
+
 
 def make_tree(obj):
     return _table_model_spec_map[obj.__tablename__](obj).json
