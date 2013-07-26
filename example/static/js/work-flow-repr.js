@@ -24,12 +24,16 @@ function _getNodeCount(tree) {
     return ret;
 }
 
-function get_attr(list, attrName) {
+function get_attr(list, attrName, encode) {
     var result = "";
     $.each(list, function (idx, value) {
         temp = value[attrName];
         if (list.length > 1) {
-            temp = "&lt;" + temp + "&gt;";
+            if (encode) {
+                temp = "&lt;" + temp +"&gt;";
+            }else{
+                temp = "<" + temp + ">";
+            }
         }
         result += temp;
         if (idx < list.length - 1) {
@@ -149,7 +153,7 @@ WorkFlowRepr.prototype.draw = function () {
                             'data-name': get_attr(group_size, "name"),
                             'data-placement': 'bottom',
                             'data-trigger': 'hover',
-                            'data-ot': get_attr(group_size, "description")
+                            'data-ot': get_attr(group_size, "description", true)
                         }
                     );
                 circle.mouseover((function (eventPoint) {
@@ -171,8 +175,19 @@ WorkFlowRepr.prototype.draw = function () {
                 return n<10 ? '0'+n : n
             }
             var dateString ="", name="";
-            $.each(group_size, function (idx, value) {
-                var d = new Date(value.datetime);
+            var d = new Date(group_size[0].datetime);
+            if (!(lastDate && lastDate.year == d.getUTCFullYear() && lastDate.month == d.getUTCMonth() && lastDate.day == d.getUTCDate())) {
+                dateString += pad(d.getUTCMonth() + 1) + '-' + pad(d.getUTCDate()) + ' ';
+            }
+            lastDate = {
+                year: d.getUTCFullYear(),
+                month: d.getUTCMonth(),
+                day: d.getUTCDate()
+            };
+            dateString += pad(d.getUTCHours()) + ':' + pad(d.getUTCMinutes());
+            if (group_size.length > 1){
+                var d = new Date(group_size[group_size.length-1].datetime);
+                dateString += "~";
                 if (!(lastDate && lastDate.year == d.getUTCFullYear() && lastDate.month == d.getUTCMonth() && lastDate.day == d.getUTCDate())) {
                     dateString += pad(d.getUTCMonth() + 1) + '-' + pad(d.getUTCDate()) + ' ';
                 }
@@ -181,23 +196,13 @@ WorkFlowRepr.prototype.draw = function () {
                     month: d.getUTCMonth(),
                     day: d.getUTCDate()
                 };
-                if (group_size.length > 1){
-                    dateString += "<" + pad(d.getUTCHours()) + ':' + pad(d.getUTCMinutes()) +">";
-                    name += "<" + value.name + ">";
-                }else{
-                    dateString += pad(d.getUTCHours()) + ':' + pad(d.getUTCMinutes());
-                    name += value.name;
-                }
-                if (idx < group_size.length - 1) {
-                    name += ",";
-                    dateString += ","
-                }
-            });
-            draw.text(name+"\n"+dateString).move(textPoint[0], textPoint[1]).font({
+                dateString += pad(d.getUTCHours()) + ':' + pad(d.getUTCMinutes());
+            }
+            draw.text(get_attr(group_size,"name")+"\n"+dateString).move(textPoint[0], textPoint[1]).font({
                 size: 10,
-                anchor: 'middle',
+                anchor: 'middle'
             }).attr({
-                'data-role': 'event-name',
+                'data-role': 'event-name'
             });
                 group_size = [];
             }
