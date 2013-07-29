@@ -178,25 +178,18 @@ function _getNodeCount(tree) {
 }
 
 function get_attr(list, attrName, encode) {
-    var result = "";
+    var result = (list.length>1)? '[':'';
     $.each(list, function (idx, value) {
         temp = value[attrName];
         if (!temp){
             return true;
-        }
-        if (list.length > 1) {
-            if (encode) {
-                temp = "&lt;" + temp +"&gt;";
-            }else{
-                temp = "<" + temp + ">";
-            }
         }
         result += temp;
         if (idx < list.length - 1) {
             result += ","
         }
     });
-    return result;
+    return result + ((list.length>1)? ']': '');
 }
 
 _traversTree = function(tree) {
@@ -282,8 +275,9 @@ WorkFlowRepr.prototype.draw = function () {
     var lifeCycleLayer = [];
 
     var eventDiameter = 10;
+    var lastDate = '';
     for (var i=0; i < nodes.length; ++i) {
-        var node = nodes[i], group_size = [], lastDate = "";
+        var node = nodes[i], group_size = [];
         var color = COLORS.get(i, nodes.length);
         for (var j=0; j < node.events.length; ++j) {
             var event_ = node.events[j];
