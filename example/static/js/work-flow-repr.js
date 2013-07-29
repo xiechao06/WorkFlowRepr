@@ -398,7 +398,7 @@ WorkFlowRepr.prototype.draw = function () {
                 path += '0 ';
                 path += '0,0 ';
                 path += x1 + ',' + (y1 - eventDiameter);
-                draw.path(path, true).stroke({width: 1}).fill('none').attr('marker-end', 'url(#Triangle)');
+                draw.path(path, true).stroke({width: 1, color: color}).fill('none').attr('marker-end', 'url(#Triangle)');
                 ++childCnt;
             }
         }
