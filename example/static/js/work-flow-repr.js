@@ -181,6 +181,9 @@ function get_attr(list, attrName, encode) {
     var result = "";
     $.each(list, function (idx, value) {
         temp = value[attrName];
+        if (!temp){
+            return true;
+        }
         if (list.length > 1) {
             if (encode) {
                 temp = "&lt;" + temp +"&gt;";
