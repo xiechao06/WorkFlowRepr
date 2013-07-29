@@ -178,7 +178,7 @@ function _getNodeCount(tree) {
 }
 
 function get_attr(list, attrName, encode) {
-    var result = (list.length>1)? '[':'';
+    var result = '';
     $.each(list, function (idx, value) {
         temp = value[attrName];
         if (!temp){
@@ -189,7 +189,30 @@ function get_attr(list, attrName, encode) {
             result += ","
         }
     });
-    return result + ((list.length>1)? ']': '');
+    if (result && list.length>1) {
+        result = '[' + result + ']';
+    }
+    return result;
+}
+
+function _compose_description(list) {
+    var desc_list = [];
+    for (var i=0; i < list.length; ++i) {
+       if (list[i].description) {
+           desc_list.push(list[i].description);
+       }
+    }
+    var result = '';
+    if (desc_list.length>1) {
+        result = '<ul>';
+        for (var i=0; i < desc_list.length; ++i) {
+            result += '<li>' + desc_list[i] + '</li>';
+        }
+        result += '</ul>'
+    } else if (desc_list.length == 1) {
+        result = desc_list[0];
+    }
+    return result;
 }
 
 _traversTree = function(tree) {
@@ -304,7 +327,7 @@ WorkFlowRepr.prototype.draw = function () {
                             'data-name': get_attr(group_size, "name"),
                             'data-placement': 'bottom',
                             'data-trigger': 'hover',
-                            'data-ot': get_attr(group_size, "description", true)
+                            'data-ot': _compose_description(group_size)
                         }
                     );
                 circle.mouseover((function (eventPoint) {
