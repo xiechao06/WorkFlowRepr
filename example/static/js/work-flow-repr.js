@@ -249,7 +249,7 @@ WorkFlowRepr.prototype.getMaxPeriod = function () {
 
 WorkFlowRepr.prototype.draw = function () {
     var nodes = _traversTree(this.tree);
-    var steps = (this.height - 2 * this.margin) / nodes.length;
+    var step_size = (this.height - 2 * this.margin) / nodes.length;
     var drawableWidth = this.width - 2 * this.margin;
 
     var draw = SVG(this.canvas).size(this.width, this.height);
@@ -262,7 +262,7 @@ WorkFlowRepr.prototype.draw = function () {
         var node = nodes[i];
         node.idx = i;
         var x = this.margin;
-        var y = this.margin + i * steps;
+        var y = this.margin + i * step_size;
         for (var j=x; j < x + drawableWidth; j += 10) {
             draw.line(j, y, j + 5, y).stroke({width: 1, color: 'grey'});
         }
@@ -299,6 +299,7 @@ WorkFlowRepr.prototype.draw = function () {
 
     var eventDiameter = 10;
     var lastDate = '';
+    var branches = [];
     for (var i=0; i < nodes.length; ++i) {
         var node = nodes[i], group_size = [];
         var color = COLORS.get(i, nodes.length);
@@ -306,7 +307,7 @@ WorkFlowRepr.prototype.draw = function () {
             var event_ = node.events[j];
             group_size.push(event_);
 
-            var eventPoint = [this.margin + _calcEventPos(event_), this.margin + i * steps];
+            var eventPoint = [this.margin + _calcEventPos(event_), this.margin + i * step_size];
             if (j==0) {
                 var start = eventPoint;
             }
@@ -315,7 +316,7 @@ WorkFlowRepr.prototype.draw = function () {
             } else {
                 if (group_size.length > 1) {
                     var avg = (_calcEventPos(group_size[0]) + _calcEventPos(group_size[group_size.length - 1])) / 2
-                    eventPoint = [this.margin + avg, this.margin + i * steps];
+                    eventPoint = [this.margin + avg, this.margin + i * step_size];
                     var circle = draw.ellipse(eventDiameter * group_size.length, eventDiameter).center(eventPoint[0], eventPoint[1])
                 } else {
                     circle = draw.circle(eventDiameter).center(eventPoint[0], eventPoint[1])
@@ -396,30 +397,51 @@ WorkFlowRepr.prototype.draw = function () {
             }
         })(this.lifeCycleLineWidth));
         lifeCycleLayer.push(line); 
-        // draw branches
-        var childCnt = 0;
-        var lastChildCreateTime = new Date();
+
+        // collect branches
         for (var j=0; j < node.childrenGroups.length; ++j) {
             var group = node.childrenGroups[j];
             for (var k=0; k < group['items'].length; ++k) {
                 var childNode = group['items'][k];
-                if (childNode.events[0].datetime != lastChildCreateTime) {
-                    childCnt = 0;
-                    lastChildCreateTime = childNode.events[0].datetime;
-                } 
-                var y1 = this.margin + childNode.idx * steps;
-                var y2 = this.margin + node.idx * steps;
-                var x1 = x2 = this.margin + _calcEventPos(childNode.events[0]);
-                var path = 'M' + x2 + ',' + y2 + ' ';
-                path += 'A' + (childCnt * 25) + ',' + (y1 - y2)/2 + ' ';
-                path += '0 ';
-                path += '0,0 ';
-                path += x1 + ',' + (y1 - eventDiameter);
-                draw.path(path, true).stroke({width: 1, color: color}).fill('none').attr('marker-end', 'url(#Triangle)');
-                ++childCnt;
+                branches.push({
+                    datetime: new Date(childNode.events[0].datetime),
+                    from: node.idx,
+                    to: childNode.idx,
+                    color: color
+                });
             }
         }
     }
+    // draw branches
+    branches.sort(function (a, b) {
+        if (a.datetime > b.datetime) {
+            return 1;
+        } 
+        if (a.datetime < b.datetime) {
+            return -1;
+        }
+        return 0;
+    });
+    var lastBranchDatetime = branches[0].datetime;
+    var curvature = 0;
+    for (var i=0; i < branches.length; ++i) {
+        var branch = branches[i];
+        if (branch.datetime.getTime() - lastBranchDatetime.getTime() > (max * this.compress_range / 100)) {
+            curvature = 0;
+            lastBranchDatetime = branch.datetime; 
+        }
+        var y1 = this.margin + branch.to * step_size;
+        var y2 = this.margin + branch.from * step_size;
+        var x1 = x2 = this.margin + drawableWidth * (branch.datetime.getTime() - beginTime.getTime()) / timespan;
+        var path = 'M' + x2 + ',' + y2 + ' ';
+        path += 'A' + (curvature * 25) + ',' + (y1 - y2)/2 + ' ';
+        path += '0 ';
+        path += '0,0 ';
+        path += x1 + ',' + (y1 - eventDiameter);
+        draw.path(path, true).stroke({width: 1, color: branch.color}).fill('none').attr('marker-end', 'url(#Triangle)');
+        ++curvature;
+    }
+
     for (var i=0; i < lifeCycleLayer.length; ++i) {
         lifeCycleLayer[i].back();
     }
