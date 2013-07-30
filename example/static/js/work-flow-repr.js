@@ -151,7 +151,7 @@ WorkFlowRepr.prototype.draw = function () {
                 window.open(target); 
             }
         })(node.target));
-        var fobj = draw.foreignObject(100, 100).attr({id: 'fobj'+i}).move(x-20, y-15);
+        var fobj = draw.foreignObject(20, 100).attr({id: 'fobj'+i}).move(x-20, y-15);
         fobj.appendChild("div", {id: "fobj-div" + i, innerHTML: "<input type='checkbox' name='visiable-check' checked data-node='" + i + "'>"});
         var node_begin_time = new Date(node.events[0].datetime);
         var node_end_time = new Date(node.events[node.events.length-1].datetime); 
