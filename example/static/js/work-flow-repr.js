@@ -246,6 +246,15 @@ WorkFlowRepr.prototype.getMaxPeriod = function () {
     return max
 }
 
+$("input[type=checkbox][name=visiable-check]").live("click", function () {
+    var node = $(this).attr("data-node");
+    if($(this).attr("checked")){
+        $("[data-node="+node+"]:not([type=checkbox])").show();
+    }else{
+        $("[data-node="+node+"]:not([type=checkbox])").hide();
+    }
+});
+
 
 WorkFlowRepr.prototype.draw = function () {
     var nodes = _traversTree(this.tree);
@@ -272,13 +281,15 @@ WorkFlowRepr.prototype.draw = function () {
             anchor: 'top',
         }).attr({
             'data-ot': node.description,
-            'data-role': 'node-name'
+            'data-role': 'node-name',
         }).fill({color: 'gray'});
         text.click((function (target) {
             return function () {
                 window.open(target); 
             }
         })(node.target));
+        var fobj = draw.foreignObject(100, 100).attr({id: 'fobj'+i}).move(x-20, y-30);
+        fobj.appendChild("div", {id: "fobj-div" + i, innerHTML: "<input type='checkbox' name='visiable-check' checked data-node='" + i + "'>"});
         var node_begin_time = new Date(node.events[0].datetime);
         var node_end_time = new Date(node.events[node.events.length-1].datetime); 
         if (node_begin_time < beginTime) {
@@ -325,6 +336,7 @@ WorkFlowRepr.prototype.draw = function () {
                             'data-actor': get_attr(group_size, "actor"),
                             'data-datetime': get_attr(group_size, "datetime"),
                             'data-name': get_attr(group_size, "name"),
+                            'data-node': i,
                             'data-placement': 'bottom',
                             'data-trigger': 'hover',
                             'data-ot': _compose_description(group_size)
@@ -376,7 +388,8 @@ WorkFlowRepr.prototype.draw = function () {
                 size: 10,
                 anchor: 'middle'
             }).attr({
-                'data-role': 'event-name'
+                'data-role': 'event-name',
+                'data-node': i
             });
                 group_size = [];
             }
@@ -384,6 +397,7 @@ WorkFlowRepr.prototype.draw = function () {
         var line = draw.line(start[0], start[1], eventPoint[0], eventPoint[1]).stroke({color: color, width: this.lifeCycleLineWidth}).attr({
             'data-role': 'life-cycle',
             'data-ot': node.description,
+            'data-node': i
         });
         line.mouseover((function (line_width) {
             return function (event) {
@@ -415,7 +429,7 @@ WorkFlowRepr.prototype.draw = function () {
                 path += '0 ';
                 path += '0,0 ';
                 path += x1 + ',' + (y1 - eventDiameter);
-                draw.path(path, true).stroke({width: 1, color: color}).fill('none').attr('marker-end', 'url(#Triangle)');
+                draw.path(path, true).stroke({width: 1, color: color}).fill('none').attr({'marker-end': 'url(#Triangle)', "data-node": i});
                 ++childCnt;
             }
         }
