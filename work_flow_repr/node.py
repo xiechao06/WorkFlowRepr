@@ -16,12 +16,16 @@ class Node(object):
         return NotImplemented
 
     @property
+    def _processed_events(self):
+        return sorted((e for e in self.events if e.datetime), key=lambda x: x.datetime or datetime.datetime.now())
+
+    @property
     def json(self):
         ret = {
             'name': self.name,
             'target': self.target,
             'description': self.description,
-            'events': [event.json for event in sorted(self.events, key=lambda x: x.datetime or datetime.datetime.now())],
+            'events': [event.json for event in self._processed_events],
             'childrenGroups': [{
                 'name': group.name,
                 'items': [item.json for item in group.items]
