@@ -19,7 +19,7 @@ var WorkFlowRepr = function (canvas, tree, compress_range, width, height) {
     this.width = width? width: 960;
     this.height = height? height: 640;
     this.compress_range = compress_range;
-    $(canvas).prepend('<input type="checkbox" checked id="display-event-description" />是否展示事件描述');
+    $(canvas).prepend('<div style="margin-left: 20px"><input type="checkbox" checked id="display-event-description" />是否展示事件描述</div>');
 }
 
 
