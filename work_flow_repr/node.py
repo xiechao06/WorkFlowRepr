@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+import datetime
 class Node(object):
 
     def __init__(self, name, description, target):
@@ -20,7 +21,7 @@ class Node(object):
             'name': self.name,
             'target': self.target,
             'description': self.description,
-            'events': [event.json for event in sorted(self.events, key=lambda x: x.datetime)],
+            'events': [event.json for event in sorted(self.events, key=lambda x: x.datetime or datetime.datetime.now())],
             'childrenGroups': [{
                 'name': group.name,
                 'items': [item.json for item in group.items]
