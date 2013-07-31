@@ -10,146 +10,8 @@ function Colors(dictonary) {
         return this.array[idx] ? this.array[idx] : (default_value ? default_value : undefined);
     }
 }
-
-COLORS = new Colors({"AliceBlue": "#F0F8FF",
-    "AntiqueWhite": "#FAEBD7",
-    "Aqua": "#00FFFF",
-    "Aquamarine": "#7FFFD4",
-    "Azure": "#F0FFFF",
-    "Beige": "#F5F5DC",
-    "Bisque": "#FFE4C4",
-    "Black": "#000000",
-    "BlanchedAlmond": "#FFEBCD",
-    "Blue": "#0000FF",
-    "BlueViolet": "#8A2BE2",
-    "Brown": "#A52A2A",
-    "BurlyWood": "#DEB887",
-    "CadetBlue": "#5F9EA0",
-    "Chartreuse": "#7FFF00",
-    "Chocolate": "#D2691E",
-    "Coral": "#FF7F50",
-    "CornflowerBlue": "#6495ED",
-    "Cornsilk": "#FFF8DC",
-    "Crimson": "#DC143C",
-    "Cyan": "#00FFFF",
-    "DarkBlue": "#00008B",
-    "DarkCyan": "#008B8B",
-    "DarkGoldenRod": "#B8860B",
-    "DarkGray": "#A9A9A9",
-    "DarkGreen": "#006400",
-    "DarkKhaki": "#BDB76B",
-    "DarkMagenta": "#8B008B",
-    "DarkOliveGreen": "#556B2F",
-    "DarkOrange": "#FF8C00",
-    "DarkOrchid": "#9932CC",
-    "DarkRed": "#8B0000",
-    "DarkSalmon": "#E9967A",
-    "DarkSeaGreen": "#8FBC8F",
-    "DarkSlateBlue": "#483D8B",
-    "DarkSlateGray": "#2F4F4F",
-    "DarkTurquoise": "#00CED1",
-    "DarkViolet": "#9400D3",
-    "DeepPink": "#FF1493",
-    "DeepSkyBlue": "#00BFFF",
-    "DimGray": "#696969",
-    "DodgerBlue": "#1E90FF",
-    "FireBrick": "#B22222",
-    "FloralWhite": "#FFFAF0",
-    "ForestGreen": "#228B22",
-    "Fuchsia": "#FF00FF",
-    "Gainsboro": "#DCDCDC",
-    "GhostWhite": "#F8F8FF",
-    "Gold": "#FFD700",
-    "GoldenRod": "#DAA520",
-    "Gray": "#808080",
-    "Green": "#008000",
-    "GreenYellow": "#ADFF2F",
-    "HoneyDew": "#F0FFF0",
-    "HotPink": "#FF69B4",
-    "IndianRed": "#CD5C5C",
-    "Indigo": "#4B0082",
-    "Ivory": "#FFFFF0",
-    "Khaki": "#F0E68C",
-    "Lavender": "#E6E6FA",
-    "LavenderBlush": "#FFF0F5",
-    "LawnGreen": "#7CFC00",
-    "LemonChiffon": "#FFFACD",
-    "LightBlue": "#ADD8E6",
-    "LightCoral": "#F08080",
-    "LightCyan": "#E0FFFF",
-    "LightGoldenRodYellow": "#FAFAD2",
-    "LightGray": "#D3D3D3",
-    "LightGreen": "#90EE90",
-    "LightPink": "#FFB6C1",
-    "LightSalmon": "#FFA07A",
-    "LightSeaGreen": "#20B2AA",
-    "LightSkyBlue": "#87CEFA",
-    "LightSlateGray": "#778899",
-    "LightSteelBlue": "#B0C4DE",
-    "LightYellow": "#FFFFE0",
-    "Lime": "#00FF00",
-    "LimeGreen": "#32CD32",
-    "Linen": "#FAF0E6",
-    "Magenta": "#FF00FF",
-    "Maroon": "#800000",
-    "MediumAquaMarine": "#66CDAA",
-    "MediumBlue": "#0000CD",
-    "MediumOrchid": "#BA55D3",
-    "MediumPurple": "#9370DB",
-    "MediumSeaGreen": "#3CB371",
-    "MediumSlateBlue": "#7B68EE",
-    "MediumSpringGreen": "#00FA9A",
-    "MediumTurquoise": "#48D1CC",
-    "MediumVioletRed": "#C71585",
-    "MidnightBlue": "#191970",
-    "MintCream": "#F5FFFA",
-    "MistyRose": "#FFE4E1",
-    "Moccasin": "#FFE4B5",
-    "NavajoWhite": "#FFDEAD",
-    "Navy": "#000080",
-    "OldLace": "#FDF5E6",
-    "Olive": "#808000",
-    "OliveDrab": "#6B8E23",
-    "Orange": "#FFA500",
-    "OrangeRed": "#FF4500",
-    "Orchid": "#DA70D6",
-    "PaleGoldenRod": "#EEE8AA",
-    "PaleGreen": "#98FB98",
-    "PaleTurquoise": "#AFEEEE",
-    "PaleVioletRed": "#DB7093",
-    "PapayaWhip": "#FFEFD5",
-    "PeachPuff": "#FFDAB9",
-    "Peru": "#CD853F",
-    "Pink": "#FFC0CB",
-    "Plum": "#DDA0DD",
-    "PowderBlue": "#B0E0E6",
-    "Purple": "#800080",
-    "RosyBrown": "#BC8F8F",
-    "RoyalBlue": "#4169E1",
-    "SaddleBrown": "#8B4513",
-    "Salmon": "#FA8072",
-    "SandyBrown": "#F4A460",
-    "SeaGreen": "#2E8B57",
-    "SeaShell": "#FFF5EE",
-    "Sienna": "#A0522D",
-    "Silver": "#C0C0C0",
-    "SkyBlue": "#87CEEB",
-    "SlateBlue": "#6A5ACD",
-    "SlateGray": "#708090",
-    "Snow": "#FFFAFA",
-    "SpringGreen": "#00FF7F",
-    "SteelBlue": "#4682B4",
-    "Tan": "#D2B48C",
-    "Teal": "#008080",
-    "Thistle": "#D8BFD8",
-    "Tomato": "#FF6347",
-    "Turquoise": "#40E0D0",
-    "Violet": "#EE82EE",
-    "Wheat": "#F5DEB3",
-    "WhiteSmoke": "#F5F5F5",
-    "Yellow": "#FFFF00",
-    "YellowGreen": "#9ACD32"
-});
+COLORS = ["#00008B", "#008B8B", "#B8860B", "#8B008B", "#FF8C00", "#9932CC", 
+       "#8B0000", "#E9967A", "#483D8B", "#00CED1", "#9400D3", "#FF1493", "#00BFFF", "#FF0000", "#0000FF", "#BDB76B"];
 
 var WorkFlowRepr = function (canvas, tree, compress_range, width, height) {
     this.canvas = canvas;
@@ -157,7 +19,7 @@ var WorkFlowRepr = function (canvas, tree, compress_range, width, height) {
     this.width = width? width: 960;
     this.height = height? height: 640;
     this.compress_range = compress_range;
-    $(canvas).prepend('<input type="checkbox" checked id="display-event-description" />是否展示事件描述');
+    $(canvas).prepend('<div style="margin-left: 20px"><input type="checkbox" checked id="display-event-description" />是否展示事件描述</div>');
 }
 
 
@@ -258,7 +120,7 @@ $("input[type=checkbox][name=visiable-check]").live("click", function () {
 
 WorkFlowRepr.prototype.draw = function () {
     var nodes = _traversTree(this.tree);
-    var steps = (this.height - 2 * this.margin) / nodes.length;
+    var step_size = (this.height - 2 * this.margin) / nodes.length;
     var drawableWidth = this.width - 2 * this.margin;
 
     var draw = SVG(this.canvas).size(this.width, this.height);
@@ -271,24 +133,25 @@ WorkFlowRepr.prototype.draw = function () {
         var node = nodes[i];
         node.idx = i;
         var x = this.margin;
-        var y = this.margin + i * steps;
+        var y = this.margin + i * step_size;
         for (var j=x; j < x + drawableWidth; j += 10) {
             draw.line(j, y, j + 5, y).stroke({width: 1, color: 'grey'});
         }
         
-        var text = draw.text(node.name).move(x, y - 30).font({
-            size: 20,
+        var text = draw.text(node.name).move(x, y-15).font({
+            size: 10,
             anchor: 'top',
         }).attr({
             'data-ot': node.description,
             'data-role': 'node-name',
+            'data-node': i,
         }).fill({color: 'gray'});
         text.click((function (target) {
             return function () {
                 window.open(target); 
             }
         })(node.target));
-        var fobj = draw.foreignObject(100, 100).attr({id: 'fobj'+i}).move(x-20, y-30);
+        var fobj = draw.foreignObject(20, 100).attr({id: 'fobj'+i}).move(x-20, y-15);
         fobj.appendChild("div", {id: "fobj-div" + i, innerHTML: "<input type='checkbox' name='visiable-check' checked data-node='" + i + "'>"});
         var node_begin_time = new Date(node.events[0].datetime);
         var node_end_time = new Date(node.events[node.events.length-1].datetime); 
@@ -310,14 +173,15 @@ WorkFlowRepr.prototype.draw = function () {
 
     var eventDiameter = 10;
     var lastDate = '';
+    var branches = [];
     for (var i=0; i < nodes.length; ++i) {
         var node = nodes[i], group_size = [];
-        var color = COLORS.get(i, nodes.length);
+        var color = COLORS[i % nodes.length];
         for (var j=0; j < node.events.length; ++j) {
             var event_ = node.events[j];
             group_size.push(event_);
 
-            var eventPoint = [this.margin + _calcEventPos(event_), this.margin + i * steps];
+            var eventPoint = [this.margin + _calcEventPos(event_), this.margin + i * step_size];
             if (j==0) {
                 var start = eventPoint;
             }
@@ -326,7 +190,7 @@ WorkFlowRepr.prototype.draw = function () {
             } else {
                 if (group_size.length > 1) {
                     var avg = (_calcEventPos(group_size[0]) + _calcEventPos(group_size[group_size.length - 1])) / 2
-                    eventPoint = [this.margin + avg, this.margin + i * steps];
+                    eventPoint = [this.margin + avg, this.margin + i * step_size];
                     var circle = draw.ellipse(eventDiameter * group_size.length, eventDiameter).center(eventPoint[0], eventPoint[1])
                 } else {
                     circle = draw.circle(eventDiameter).center(eventPoint[0], eventPoint[1])
@@ -410,30 +274,52 @@ WorkFlowRepr.prototype.draw = function () {
             }
         })(this.lifeCycleLineWidth));
         lifeCycleLayer.push(line); 
-        // draw branches
-        var childCnt = 0;
-        var lastChildCreateTime = new Date();
+
+        // collect branches
         for (var j=0; j < node.childrenGroups.length; ++j) {
             var group = node.childrenGroups[j];
             for (var k=0; k < group['items'].length; ++k) {
                 var childNode = group['items'][k];
-                if (childNode.events[0].datetime != lastChildCreateTime) {
-                    childCnt = 0;
-                    lastChildCreateTime = childNode.events[0].datetime;
-                } 
-                var y1 = this.margin + childNode.idx * steps;
-                var y2 = this.margin + node.idx * steps;
-                var x1 = x2 = this.margin + _calcEventPos(childNode.events[0]);
-                var path = 'M' + x2 + ',' + y2 + ' ';
-                path += 'A' + (childCnt * 25) + ',' + (y1 - y2)/2 + ' ';
-                path += '0 ';
-                path += '0,0 ';
-                path += x1 + ',' + (y1 - eventDiameter);
-                draw.path(path, true).stroke({width: 1, color: color}).fill('none').attr({'marker-end': 'url(#Triangle)', "data-node": i});
-                ++childCnt;
+                branches.push({
+                    datetime: new Date(childNode.events[0].datetime),
+                    from: node.idx,
+                    to: childNode.idx,
+                    color: color,
+
+                });
             }
         }
     }
+    // draw branches
+    branches.sort(function (a, b) {
+        if (a.datetime > b.datetime) {
+            return 1;
+        } 
+        if (a.datetime < b.datetime) {
+            return -1;
+        }
+        return 0;
+    });
+    var lastBranchDatetime = branches[0].datetime;
+    var curvature = 0;
+    for (var i=0; i < branches.length; ++i) {
+        var branch = branches[i];
+        if (branch.datetime.getTime() - lastBranchDatetime.getTime() > (max * this.compress_range / 100)) {
+            curvature = 0;
+            lastBranchDatetime = branch.datetime; 
+        }
+        var y1 = this.margin + branch.to * step_size;
+        var y2 = this.margin + branch.from * step_size;
+        var x1 = x2 = this.margin + drawableWidth * (branch.datetime.getTime() - beginTime.getTime()) / timespan;
+        var path = 'M' + x2 + ',' + y2 + ' ';
+        path += 'A' + (curvature * 25) + ',' + (y1 - y2)/2 + ' ';
+        path += '0 ';
+        path += '0,0 ';
+        path += x1 + ',' + (y1 - eventDiameter);
+        draw.path(path, true).stroke({width: 2, color: branch.color}).fill('none').attr({'marker-end': 'url(#Triangle)', 'data-node': branch.from});
+        ++curvature;
+    }
+
     for (var i=0; i < lifeCycleLayer.length; ++i) {
         lifeCycleLayer[i].back();
     }
@@ -454,14 +340,14 @@ WorkFlowRepr.prototype.draw = function () {
     var defs = svgNode.getElementsByTagName('defs')[0];
     var marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
     marker.setAttribute('id', 'Triangle');
-    marker.setAttribute('refX', '5');
-    marker.setAttribute('refY', '5');
-    marker.setAttribute('markerWidth', '14');
-    marker.setAttribute('markerHeight', '13');
+    marker.setAttribute('refX', '2.5');
+    marker.setAttribute('refY', '2.5');
+    marker.setAttribute('markerWidth', '7');
+    marker.setAttribute('markerHeight', '7');
     marker.setAttribute('orient', 'auto');
     var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     marker.appendChild(path);
-    path.setAttribute('d', 'M 0 0 L 10 5 L 0 10 z');
+    path.setAttribute('d', 'M 0 0 L 5 2 L 0 5 z');
     svgNode.appendChild(defs);
     defs.appendChild(marker);
 }
