@@ -10,7 +10,7 @@ class Event(object):
     @property
     def json(self):
         ret = {
-            'datetime': self.datetime.strftime("%Y-%m-%dT%H:%M:%S"),
+            'datetime': self.datetime.strftime("%Y-%m-%dT%H:%M:%S") if self.datetime else '--',
             'name': self.name,
             'actor': self.actor,
             'description': self.description,
