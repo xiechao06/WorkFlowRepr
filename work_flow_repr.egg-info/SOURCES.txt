@@ -1,0 +1,10 @@
+setup.py
+work_flow_repr/__init__.py
+work_flow_repr/event.py
+work_flow_repr/node.py
+work_flow_repr/work_flow_repr.py
+work_flow_repr.egg-info/PKG-INFO
+work_flow_repr.egg-info/SOURCES.txt
+work_flow_repr.egg-info/dependency_links.txt
+work_flow_repr.egg-info/not-zip-safe
+work_flow_repr.egg-info/top_level.txt

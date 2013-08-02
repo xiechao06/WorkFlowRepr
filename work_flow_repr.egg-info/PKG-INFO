@@ -1,0 +1,19 @@
+Metadata-Version: 1.1
+Name: work-flow-repr
+Version: 0.0.1-dev
+Summary: UNKNOWN
+Home-page: http://github.com/xiechao06/WorkFlowRepr/
+Author: XieChao
+Author-email: xiechao06@gmail.com
+License: BSD
+Description: 
+        
+Platform: any
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content :: REPORT
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>types of order &mdash; Work Flow Representation 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Work Flow Representation 0.1 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">Work Flow Representation 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-work_flow_repr.utils">
+<span id="types-of-order"></span><h1>types of order<a class="headerlink" href="#module-work_flow_repr.utils" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="work_flow_repr.utils.annotate_model">
+<tt class="descclassname">work_flow_repr.utils.</tt><tt class="descname">annotate_model</tt><big>(</big><em>model</em>, <em>node_cls</em><big>)</big><a class="reference internal" href="_modules/work_flow_repr/utils.html#annotate_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#work_flow_repr.utils.annotate_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>annotate the model, tell WFR that the model should be represented using &#8216;node_cls&#8217;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>model</strong> &#8211; a model <strong>CLASS</strong> which is defined in Sqlalchemy&#8217;s <em>Declarative</em> way</li>
+<li><strong>node_cls</strong> (<a class="reference internal" href="work_flow_repr.html#work_flow_repr.Node" title="work_flow_repr.Node"><tt class="xref py py-class docutils literal"><span class="pre">work_flow_repr.Node</span></tt></a>) &#8211; a node <strong>CLASS</strong></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="work_flow_repr.utils.ModelNode">
+<em class="property">class </em><tt class="descclassname">work_flow_repr.utils.</tt><tt class="descname">ModelNode</tt><big>(</big><em>obj</em><big>)</big><a class="reference internal" href="_modules/work_flow_repr/utils.html#ModelNode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#work_flow_repr.utils.ModelNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>A helpler class to generate Node from model. to draw a work flow DAG:</p>
+<blockquote>
+<div><ul class="simple">
+<li>you <strong>MUST</strong> implement <a class="reference internal" href="#work_flow_repr.utils.ModelNode.children_model_groups" title="work_flow_repr.utils.ModelNode.children_model_groups"><tt class="xref py py-meth docutils literal"><span class="pre">children_model_groups()</span></tt></a></li>
+<li>you <strong>SHOULD</strong> override description <a class="reference internal" href="#work_flow_repr.utils.ModelNode.description" title="work_flow_repr.utils.ModelNode.description"><tt class="xref py py-meth docutils literal"><span class="pre">description()</span></tt></a>, <a class="reference internal" href="#work_flow_repr.utils.ModelNode.target" title="work_flow_repr.utils.ModelNode.target"><tt class="xref py py-meth docutils literal"><span class="pre">target()</span></tt></a></li>
+<li>you <strong>MAY</strong> override <a class="reference internal" href="#work_flow_repr.utils.ModelNode.name" title="work_flow_repr.utils.ModelNode.name"><tt class="xref py py-meth docutils literal"><span class="pre">ModelNode.name()</span></tt></a></li>
+</ul>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Order</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;TB_ORDER&#39;</span>
+
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkCommand</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;TB_WORK_COMMAND&#39;</span>
+
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">order_id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&quot;TB_ORDER.id&quot;</span><span class="p">))</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">relationship</span><span class="p">(</span><span class="s">&quot;Order&quot;</span><span class="p">,</span> <span class="n">backref</span><span class="o">=</span><span class="s">&#39;work_command_list&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">OrderModelNode</span><span class="p">(</span><span class="n">ModelNode</span><span class="p">):</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;an &lt;strong&gt;order&lt;/strong&gt; is a commitment made to customer&#39;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">target</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;/order/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">Event</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s">&#39;2013-08-01 10:00:00&#39;</span><span class="p">,</span> <span class="s">&quot;%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M:%S&quot;</span><span class="p">),</span> <span class="s">&#39;create&#39;</span><span class="p">,</span> <span class="s">&#39;manager&#39;</span><span class="p">),</span>
+            <span class="n">Event</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s">&#39;2013-08-01 10:30:00&#39;</span><span class="p">,</span> <span class="s">&quot;%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M:%S&quot;</span><span class="p">),</span> <span class="s">&#39;split to work commands&#39;</span><span class="p">,</span> <span class="s">&#39;manager&#39;</span><span class="p">),</span>
+        <span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">children_model_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[(</span><span class="s">&#39;work command list&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">work_command_list</span><span class="p">)]</span>
+
+<span class="k">class</span> <span class="nc">WorkCommandModelNode</span><span class="p">(</span><span class="n">ModelNode</span><span class="p">):</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">children_model_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">target</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;/work_command/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">Event</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s">&#39;2013-08-01 10:30:00&#39;</span><span class="p">,</span> <span class="s">&quot;%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M:%S&quot;</span><span class="p">),</span> <span class="s">&#39;create&#39;</span><span class="p">,</span> <span class="s">&#39;worker&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s">&#39;split to work command&#39;</span><span class="p">),</span>
+            <span class="n">Event</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s">&#39;2013-08-01 17:30:00&#39;</span><span class="p">,</span> <span class="s">&quot;%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M:%S&quot;</span><span class="p">),</span> <span class="s">&#39;finish&#39;</span><span class="p">,</span> <span class="s">&#39;worker&#39;</span><span class="p">),</span>
+        <span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;WC&#39;</span>
+
+<span class="n">annotate</span><span class="p">(</span><span class="n">Order</span><span class="p">,</span> <span class="n">OrderModelNode</span><span class="p">)</span>
+<span class="n">annotate</span><span class="p">(</span><span class="n">WorkCommand</span><span class="p">,</span> <span class="n">WorkCommandModelNode</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> &#8211; a model object</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="work_flow_repr.utils.ModelNode.children_groups">
+<tt class="descname">children_groups</tt><a class="reference internal" href="_modules/work_flow_repr/utils.html#ModelNode.children_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#work_flow_repr.utils.ModelNode.children_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>see <a class="reference internal" href="work_flow_repr.html#work_flow_repr.Node.children_groups" title="work_flow_repr.Node.children_groups"><tt class="xref py py-meth docutils literal"><span class="pre">work_flow_repr.Node.children_groups()</span></tt></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="work_flow_repr.utils.ModelNode.children_model_groups">
+<tt class="descname">children_model_groups</tt><a class="reference internal" href="_modules/work_flow_repr/utils.html#ModelNode.children_model_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#work_flow_repr.utils.ModelNode.children_model_groups" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">groups of models, each group is a tuple of 2 elements, first is the name of the group, second is the
+object of the groups</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of tuples</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="work_flow_repr.utils.ModelNode.description">
+<tt class="descname">description</tt><a class="reference internal" href="_modules/work_flow_repr/utils.html#ModelNode.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#work_flow_repr.utils.ModelNode.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>description of the object</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="work_flow_repr.utils.ModelNode.name">
+<tt class="descname">name</tt><a class="reference internal" href="_modules/work_flow_repr/utils.html#ModelNode.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#work_flow_repr.utils.ModelNode.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>name of the node</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="work_flow_repr.utils.ModelNode.target">
+<tt class="descname">target</tt><a class="reference internal" href="_modules/work_flow_repr/utils.html#ModelNode.target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#work_flow_repr.utils.ModelNode.target" title="Permalink to this definition">¶</a></dt>
+<dd><p>the url of the model object&#8217;s detail page</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="work_flow_repr.utils.make_tree">
+<tt class="descclassname">work_flow_repr.utils.</tt><tt class="descname">make_tree</tt><big>(</big><em>obj</em><big>)</big><a class="reference internal" href="_modules/work_flow_repr/utils.html#make_tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#work_flow_repr.utils.make_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>make a tree whose root is &#8216;obj&#8217;, see <a class="reference internal" href="work_flow_repr.html#work_flow_repr.Node.json" title="work_flow_repr.Node.json"><tt class="xref py py-meth docutils literal"><span class="pre">work_flow_repr.Node.json()</span></tt></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> &#8211; a model object, the model should be annotated by <a class="reference internal" href="#work_flow_repr.utils.annotate_model" title="work_flow_repr.utils.annotate_model"><tt class="xref py py-func docutils literal"><span class="pre">work_flow_repr.utils.annotate_model()</span></tt></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a tree whose root is &#8216;obj&#8217;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body">DictType</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/utils.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">Work Flow Representation 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, xiechao.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

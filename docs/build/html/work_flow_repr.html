@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>types of order &mdash; Work Flow Representation 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Work Flow Representation 0.1 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">Work Flow Representation 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-work_flow_repr">
+<span id="types-of-order"></span><h1>types of order<a class="headerlink" href="#module-work_flow_repr" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="work_flow_repr.Node">
+<em class="property">class </em><tt class="descclassname">work_flow_repr.</tt><tt class="descname">Node</tt><big>(</big><em>name</em>, <em>description</em>, <em>target</em><big>)</big><a class="headerlink" href="#work_flow_repr.Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>this class represent an object (draw in dashed line) in work flow DAG.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; name of the node</li>
+<li><strong>description</strong> &#8211; description of the node</li>
+<li><strong>target</strong> &#8211; target of the node</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="work_flow_repr.Node.children_groups">
+<tt class="descname">children_groups</tt><a class="headerlink" href="#work_flow_repr.Node.children_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a groups of children</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a list of children groups, each group should have 2 attributes:<ul class="simple">
+<li>name  - name of the group</li>
+<li>items - children objects</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="work_flow_repr.Node.events">
+<tt class="descname">events</tt><a class="headerlink" href="#work_flow_repr.Node.events" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">a list of <a class="reference internal" href="#work_flow_repr.Event" title="work_flow_repr.Event"><tt class="xref py py-class docutils literal"><span class="pre">work_flow_repr.Event</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="work_flow_repr.Node.json">
+<tt class="descname">json</tt><a class="headerlink" href="#work_flow_repr.Node.json" title="Permalink to this definition">¶</a></dt>
+<dd><p>represent a tree root from self</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DictType</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="work_flow_repr.Event">
+<em class="property">class </em><tt class="descclassname">work_flow_repr.</tt><tt class="descname">Event</tt><big>(</big><em>datetime</em>, <em>name</em>, <em>actor</em>, <em>description=''</em>, <em>by=''</em><big>)</big><a class="headerlink" href="#work_flow_repr.Event" title="Permalink to this definition">¶</a></dt>
+<dd><p>represent an event in work flow DAG</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>datetime</strong> (<em>datetime.datetime</em>) &#8211; datetime of the event</li>
+<li><strong>name</strong> &#8211; name of the event</li>
+<li><strong>actor</strong> &#8211; the actor of the event</li>
+<li><strong>description</strong> &#8211; description of the event</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">By :</th><td class="field-body"><p class="first last">if the event is the birth event of a node, and the node is generated by another node&#8217;s event (say branch event), 
+then by should be the name of the branch event</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="work_flow_repr.Event.json">
+<tt class="descname">json</tt><a class="headerlink" href="#work_flow_repr.Event.json" title="Permalink to this definition">¶</a></dt>
+<dd><p>represent the event as dict</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DictType</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/work_flow_repr.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">Work Flow Representation 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, xiechao.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>
